@@ -1,0 +1,50 @@
+
+:1:0
+
+-Kindergarten  2013-2014
+
+1. John Smith
+
+1st Grade- Ms. Gina
+
+:2:1
+
+1. John Smith 
+
+:3:2
+2nd Grade- Ms. Mary
+
+1. John Smith 
+
+:4:3
+3 Grade- Ms. Julie
+
+1. John Smith 
+
+:5:4
+4th Grade- 2013-2014
+
+1. John Smith 
+
+:6:5
+5 Grade- 2013-2014
+
+1. John Smith 
+
+:7:0
+K-1 MULTI-AGE 2013-2014
+
+1. John Smith 
+
+:8:2
+2-3 Multi-Age 2013-2014
+
+1. John Smith  2
+
+2. Jane Smith  3
+
+:9:4
+4-5 Multi-Age 2013-2014
+
+1. John Smith 
+
