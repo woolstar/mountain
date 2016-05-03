@@ -1,0 +1,44 @@
+<html>
+<head>
+  <title>Mountain school hours - admin access</title>
+  <style>
+	a { font-size: small; }
+	tr { background-color: white; }
+    tr.header { background-color: #ffaaaa; }
+  </style>
+</head>
+<body>
+
+Entire account list,
+<p>
+
+<TABLE bgcolor=black cellspacing=2 cellpadding=1>
+  <tr class=header>
+    <th width=40>id</th>
+	<th width=200>name</th>
+	<th width=80>hours</th>
+	<th width=100>access</th>
+  </tr>
+
+<REPEAT on=row>
+  <tr>
+    <td align=center>{row.account_id}</td>
+	<td>&nbsp; {row.name}</td>
+	<td align=right>&nbsp; {row.hours} &nbsp;</td>
+	<td align=right>
+	  <A href="../main.pl?account_id={row.account_id}&account={row.login}">edit</A>
+	</td>
+  </tr>
+</REPEAT>
+
+</table>
+
+<hr>
+
+<font size=1 color=red>
+{dump}
+</font>
+
+</body>
+
+

@@ -1,0 +1,205 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="common/css/calendar.css" />
+  <script type="text/javascript" src="common/js/prototype.js"></script>
+  <script type="text/javascript" src="common/js/calendar.js"></script>
+  <script type="text/javascript" src="common/js/calendar-en.js"></script>
+  <script type="text/javascript" src="common/js/calendar-setup.js"></script>
+  <script type="text/javascript">
+
+var students = {
+	{classes}
+	} ;
+
+function list_update(transport)
+{
+	$('hours').innerHTML= transport.responseText
+}
+
+function do_post()
+{
+	var xform= $('formf') ;
+
+	xform.request({ onSuccess: list_update } ) ;
+	$$('#volitile').each(function(e) { e.clear() } )
+}
+
+function show_add()
+{
+	$('addbutton').style.visibility= "hidden"
+	$('addstudent').style.visibility= "visible"
+}
+
+function fill_select( ev)
+{
+	var op= document.createElement('option') ;
+
+	op.value= ev[0] ;
+	op.text= ev[1] ;
+
+	var sele= $('studentlist') ;
+	try {
+		sele.add(op, null) }
+	catch (ex) {
+		sele.add(op) 
+	}
+}
+
+function change_grade()
+{
+	$('studentlist').innerHTML= '' ;
+	$('studentlist').clear() ;
+	$('studentlist').options.length= 0 ;
+
+	var op= $('gradelist').getValue() ;
+	var lst= students[op] ;
+
+	if ( ! op ) return ;
+
+	$('studentlist').options.length= 0 ;
+
+	lst.each( function( va) { fill_select( va) } )
+}
+
+  </script>
+</head>
+<body>
+
+<h3>Mountain School - time tracking</h3>
+
+{strfirst} {strlast} <br>
+<FONT size=1>{strdesc}</font>
+
+<hr>
+
+<b>Student list</b>:
+<p>
+
+<div id=students>
+<REPEAT on=students>
+&nbsp; {students.name} - {students.classna}<br>
+</REPEAT>
+<p>
+
+</div>
+
+<table>
+  <tr valign=top >
+	<td> <div id=addbutton> <input type=button value="+" onclick="show_add()" /> </div></td>
+    <td> <div id=addstudent style="visibility: hidden">
+			<form name=fa id="forms" action="main.pl?">
+			  <input type=hidden name=add value=member />
+			  <input type=hidden name=account_id value={account_id} />
+			  <input type=hidden name=account value={account} />
+			  <table><tr>
+			    <td>
+				  <select name="grade" id='gradelist' onChange="change_grade()">
+					<option value=0 selected>-- select grade --</option>
+				  	<option list>{grades}</option>
+				  </select>
+				</td>
+				<td width=5></td>
+				<td>
+				  <select name="student" id="studentlist">
+				    <option value=" "> </option>
+				  </select>
+				</td>
+				<td>
+				  <button name="submit" type="submit" value="member">add</button>
+				</td>
+			  </tr></table>
+			</form>
+		 </div>
+	</td>
+  </tr>
+</table>
+<hr>
+<p>
+
+<div id=hours>
+<TABLE bgcolor=black cellspacing=1 cellpadding=1>
+  <tr bgcolor=#ffaaaa>
+	<th width=90>Date</th><th width=45>type</th><th width=60>hours</th><th width=150>project</th>
+  </tr>
+
+<REPEAT on=hours>
+ <tr bgcolor=white>
+   <td align=right nowrap>{hours.dt} &nbsp;</td>
+   <td align=center><font size=1>{hours.typ}</font></td>
+   <td align=right>{hours.value} &nbsp;</td>
+   <td>&nbsp; {hours.project} &nbsp;</td>
+ </tr>
+</REPEAT>
+
+</TABLE>
+<A href="all_hours.pl?account_id={account_id}&account={account}"><FONT size=1>view all</FONT></A>
+<p>
+
+Total hours: {total}
+</div>
+
+<p>
+
+<i>add hours</i>
+
+<FONT color=red>{hour_err}</FONT>
+
+<p>
+<FORM name=f id="formf" action="sub_hours.pl?">
+   <input type=hidden name=add value=hour />
+   <input type=hidden name=account_id value={account_id} />
+   <input type=hidden name=account value={account} />
+
+<table cellpadding=3 cellspacing=1>
+  <tr>
+    <td align=right> Date:</td>
+	<td> &nbsp; </td>
+	<td> <input type=text name=date id="date" value="{now}" />
+	 <IMG src="common/html/calendar.png" alt="Calendar" id="date-start-image" />
+
+	  <script type="text/javascript">
+        Calendar.setup({
+        inputField      :  "date",          
+        ifFormat        :  "%Y-%m-%d", 
+        button          :  "date-start-image",
+        singleClick     :  true,
+        step            :  1
+        });
+      </script>
+	</td>
+  </tr>
+  <tr valign=top>
+    <td align=right> Type:</td>
+	<td></td>
+	<td>
+		<input type="radio" name="typ" value="hours" checked /> hours <br>
+		<input type="radio" name="typ" value="money" /> money
+	</td>
+  </tr>
+  <tr>
+    <td align=right> Value:</td>
+	<td></td>
+	<td> <input type=text name=value id=volitile /></td>
+  </tr>
+  <tr>
+    <td align=right> Project:</td>
+	<td></td>
+	<td> <input type=text size=40 name=proj /></td>
+  </tr>
+  <tr valign=top>
+    <td align=right> Notes:</td>
+	<td></td>
+	<td> <textarea name=notes rows=3 cols=60 id=volitile></textarea></td >
+  </tr>
+</FORM>
+  <tr>
+	<td></td> <td></td>
+	<td> <input type=button value="update" onclick="do_post()" /> </td>
+  </tr>
+</table>
+
+<p>
+
+</body>
+</html>
+

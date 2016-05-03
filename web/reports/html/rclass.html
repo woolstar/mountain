@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <style>
+		td.id { color: gray; }
+		td.stude { font-size: x-small; }
+		tr { background-color: white; }
+		tr.header { background-color: #ffaaaa; }
+		pre { font-size:x-small; color: white; }
+	</style>
+  </head>
+
+<body>
+
+Volunteer hours by class,
+<p>
+
+<table bgcolor=black cellspacing=1 cellpadding=4>
+  <tr class=header>
+    <th width=40>id</th>
+	<th width=250 colspan=2>class</th>
+	<th width=100>hours</th>
+  </tr>
+
+<REPEAT on=row>
+  <tr valign=top>
+    <td class=id rowspan=2>{row.class_id}</td>
+	<td colspan=2><b>{row.desc_grade}</b> : {row.desc_teacher}</td>
+	<td align=right rowspan=2>{row.hours}</td>
+  </tr>
+  <tr>
+    <td class=stude>{row.count} students</td>
+	<td class=stude>{row.students}</td>
+  </tr>
+</REPEAT>
+</table>
+
+<p>
+<font size=1 color=gray>{_now}</font>
+
+<hr>
+<pre>
+{dump}
+</pre>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<TABLE bgcolor=black cellspacing=1 cellpadding=1>
+  <tr class=header>
+    <th width=120>Date</th><th width=45>type</th><th width=60>hours</th>
+	<th width=160>project</th><th width=55%>notes</th>
+	<th width=20><font size=1>del</font></th>
+  </tr>
+
+<REPEAT on=hours>
+ <tr class={hours.class}>
+   <td align=right>{hours.dt} &nbsp;</td>
+   <td align=center><font size=1>{hours.typ}</font></td>
+   <td align=right>{hours.value} &nbsp;</td>
+   <td>&nbsp; {hours.project} &nbsp;</td>
+   <td><FONT size=1>&nbsp; {hours.notes}</FONT></td>
+   <td align=center class=action bgcolor=#ffffaa onclick="javascript:del_entry({hours.id},{hours.del})">
+       <b>{hours.act}</b></td>
+ </tr>
+</REPEAT>
+
+</TABLE>
+
+<p>
+<span style="cursor: pointer; " onclick="javascript:show_del()">
+  <font size=1 color=grey>show deleted</font>
+</span>
+<p>
+
+Total hours: {total}

@@ -1,0 +1,27 @@
+<html>
+  <head>
+  <link rel="stylesheet" type="text/css" href="../common/css/calendar.css" />
+  <script type="text/javascript" src="../common/js/calendar.js"></script>
+  <script type="text/javascript" src="../common/js/calendar-en.js"></script>
+  <script type="text/javascript" src="../common/js/calendar-setup.js"></script>
+  </head>
+
+  <body>
+  <FORM name=faction="?">
+	  <input type="text" name="dtstart" id="dtstart" value="2009-09-14" onchange="dochange()"/>
+	  <IMG src="../common/html/calendar.png" alt="Calendar" id="date-start-image" />
+
+	 <script type="text/javascript">
+      Calendar.setup({
+        inputField      :  "dtstart",          
+        ifFormat        :  "%Y-%m-%d", 
+        button          :  "date-start-image",
+        singleClick     :  true,
+        step            :  1,
+      });
+    </script>
+
+    <button name="Submit" type="submit" value="update">submit</button> 
+  </FORM>
+  </body>
+</html>

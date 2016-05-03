@@ -1,0 +1,101 @@
+<html>
+<head>
+  <title>Mountain School Hours - All</title>
+  <style>
+    tr { background-color: white; }
+    tr.header { background-color: #ffaaaa; }
+  	tr.del { background-color: #e0e0e0; color: grey; }
+	td.action { cursor: pointer; }
+
+  </style>
+  <script type="text/javascript" src="common/js/prototype.js"> </script>
+  <script type="text/javascript">
+
+function debugstr( s)
+{
+	$("debugdiv").style.visibility= "visible" ;
+	$("debug").value += s + "\n" ;
+}
+
+function del_entry( arec, adel )
+{
+	var s="&del=" + arec + "&mode=" + adel ;
+
+//	debugstr("delete " + s) ;
+
+	new Ajax.Request("all_hours.pl?account_id={account_id}&account={account}&sub=1" + s,
+		{ onSuccess: entry_update }
+		)
+}
+
+function show_del()
+{
+	new Ajax.Request("all_hours.pl?account_id={account_id}&account={account}&showdel=1&sub=1",
+		{ onSuccess: entry_update }
+		)
+}
+
+function entry_update(transport)
+{
+//	debugstr("response: " + transport.responseText)
+	$('hour_table').innerHTML= transport.responseText
+}
+
+  </script>
+</head>
+
+<body>
+
+<h3>Mountain School - time list</h3>
+
+{strfirst} {strlast} <br>
+<FONT size=1>{strdesc}</font>
+
+<hr>
+<p>
+
+All hours:
+
+<div id=hour_table>
+<TABLE bgcolor=black cellspacing=1 cellpadding=1>
+  <tr class=header>
+    <th width=120>Date</th><th width=45>type</th><th width=60>hours</th>
+	<th width=160>project</th><th width=55%>notes</th>
+	<th width=20><font size=1>del</font></th>
+  </tr>
+
+<REPEAT on=hours>
+ <tr class={hours.class}>
+   <td align=right>{hours.dt} &nbsp;</td>
+   <td align=center><font size=1>{hours.typ}</font></td>
+   <td align=right>{hours.value} &nbsp;</td>
+   <td>&nbsp; {hours.project} &nbsp;</td>
+   <td><FONT size=1>&nbsp; {hours.notes}</FONT></td>
+   <td align=center class=action bgcolor=#ffffaa onclick="javascript:del_entry({hours.id},{hours.del})">
+       <b>{hours.act}</b></td>
+ </tr>
+</REPEAT>
+
+</TABLE>
+
+<p>
+<span style="cursor: pointer; " onclick="javascript:show_del()">
+  <font size=1 color=grey>show deleted</font>
+</span>
+<p>
+
+Total hours: {total}
+</div>
+
+<p> <p> <p>
+<div id="debugdiv" style="visibility: hidden">
+<textarea id="debug">
+</textarea>
+</div>
+
+<hr>
+Go <a href="main.pl?account_id={account_id}&account={account}">back</a> to main page.
+
+</body>
+</html>
+

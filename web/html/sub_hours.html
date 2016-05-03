@@ -1,0 +1,22 @@
+<TABLE bgcolor=black cellspacing=1 cellpadding=1>
+  <tr bgcolor=#ffaaaa>
+    <th width=90>Date</th><th width=45>type</th><th width=60>hours</th><th width=160>project</th>
+  </tr>
+
+<REPEAT on=hours>
+ <tr bgcolor=white>
+   <td align=right nowrap>{hours.dt} &nbsp;</td>
+   <td align=center><font size=1>{hours.typ}</font></td>
+   <td align=right>{hours.value} &nbsp;</td>
+   <td>&nbsp; {hours.project} &nbsp;</td>
+ </tr>
+</REPEAT>
+
+</TABLE>
+<A href="all_hours.pl?account_id={account_id}&account={account}"><FONT size=1>view all</FONT></A>
+<p>
+
+Total hours: {total}
+
+<FONT color=red>{hour_err}</FONT>
+
